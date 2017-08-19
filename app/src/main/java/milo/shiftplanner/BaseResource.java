@@ -16,17 +16,25 @@ import java.util.Map;
 @Path("/")
 public class BaseResource implements ReflectionRestApi {
 
-	public static Exception lastRunHealthCheckException = null;
+	public static Exception lastShiftDeploymentException = null;
+	public static Exception emailSentException = null;
 
 	@GET
 	@Path("healthcheck")
 	public Response healthcheck() {
-		if (lastRunHealthCheckException == null) {
+		if (lastShiftDeploymentException == null && emailSentException == null) {
 			return Response.ok("OK").build();
 		} else {
-			StringWriter stringWriter = new StringWriter().append(lastRunHealthCheckException.getMessage() + '\n');
+
+			StringWriter stringWriter = new StringWriter();
+			if (lastShiftDeploymentException != null) {
+				stringWriter.append(lastShiftDeploymentException.getMessage() + '\n');
+			}
+			if (emailSentException != null) {
+				stringWriter.append(emailSentException.getMessage() + '\n');
+			}
 			PrintWriter printWriter = new PrintWriter(stringWriter);
-			lastRunHealthCheckException.printStackTrace(printWriter);
+			lastShiftDeploymentException.printStackTrace(printWriter);
 			return Response.serverError().entity(stringWriter.toString()).build();
 		}
 	}

@@ -1,5 +1,7 @@
 package milo.shiftplanner;
 
+import milo.shiftplanner.agents.AgentsResource;
+import milo.shiftplanner.shifts.ShiftsResource;
 import milo.utils.RestExceptionMapper;
 import milo.utils.rest.JacksonDefaultMapper;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -31,11 +33,11 @@ public class JerseyConfig extends ResourceConfig {
 
 	private void registerResources() {
 		// this does not work for spring boot fat jars / only for war packaging
-//		packages(true, this.getClass().getPackage().getName() + ".components");
+//		packages(true, this.getClass().getPackage().getName());
 		// for jar needs to register resources separately
 		register(BaseResource.class);
-//		register(AgentsResource.class);
-//		register(ShiftsResource.class);
+		register(AgentsResource.class);
+		register(ShiftsResource.class);
 	}
 
 }
