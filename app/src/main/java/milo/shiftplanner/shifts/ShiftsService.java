@@ -82,4 +82,14 @@ public class ShiftsService extends EntityService<Shift, Long> {
 		return this.sum("duration", tableSearchQuery);
 	}
 
+	public Shift findFirstAgentShift(Long agentId) {
+		try {
+			return entityManager.createNamedQuery(Shift.FIND_BY_AGENT, Shift.class)
+					.setParameter("agentId", agentId)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
 }

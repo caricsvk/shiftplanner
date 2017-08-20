@@ -13,6 +13,7 @@ import javax.ws.rs.BeanParam;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/agents")
@@ -46,8 +47,15 @@ public class AgentsResource implements EntityRestApi<Agent, Long> {
 	}
 
 	@Override
-	public void delete(@NotNull Long aLong) {
-		throw new ForbiddenException();
+	public void delete(@NotNull Long id) {
+		Shift firstAgentShift = shiftsService.findFirstAgentShift(id);
+		if (firstAgentShift == null) {
+			agentsService.remove(id);
+		} else {
+			Response errorResponse = Response.serverError().status(Response.Status.FORBIDDEN)
+					.entity("Delete for agent " + id + " is forbidden! Agent has shifts.").build();
+			throw new ForbiddenException(errorResponse);
+		}
 	}
 
 	@Override

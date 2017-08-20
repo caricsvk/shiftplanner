@@ -27,12 +27,15 @@ import java.time.LocalDateTime;
 @Entity
 @XmlRootElement
 @NamedQueries({
+		@NamedQuery(name = Shift.FIND_BY_AGENT, query = "SELECT entity FROM Shift entity WHERE agent.id = :agentId ORDER BY id ASC"),
 		@NamedQuery(name = Shift.FIND_BY_STATE, query = "SELECT entity FROM Shift entity WHERE state = :state ORDER BY entity.start DESC"),
 		@NamedQuery(name = Shift.FIND_OVERLAPPED, query = "SELECT entity FROM Shift entity WHERE state = :state AND entity.start <= :now ORDER BY entity.start DESC")
 })
 public class Shift implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String FIND_BY_AGENT = "Shift.findByAgent";
 	public static final String FIND_BY_STATE = "Shift.findByState";
 	public static final String FIND_OVERLAPPED = "Shift.findOverlapped";
 
@@ -118,10 +121,13 @@ public class Shift implements Serializable {
 	@XmlAttribute
 	@XmlJavaTypeAdapter(DurationToSeconds.class)
 	public Duration getDuration() {
-		if (this.end == null || this.start == null) {
+		if (State.PLANNED.equals(this.getState())) {
 			return null;
+		} else if (this.end == null) {
+			return Duration.between(this.getStart(), LocalDateTime.now());
+		} else {
+			return Duration.between(this.getStart(), this.getEnd());
 		}
-		return Duration.between(this.getStart(), this.getEnd());
 	}
 
 	public void setDuration() {
