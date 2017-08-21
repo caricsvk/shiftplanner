@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>shiftplanner</artifactId>
-	<version>1.0</version>
+	<version>0.9.0</version>
 	<packaging>jar</packaging>
 	<!-- use instead jar if you want to deploy it on java app server -->
 	<!--<packaging>war</packaging>-->
