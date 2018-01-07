@@ -1,6 +1,6 @@
 [submodule "sb-utils"]
 	path = sb-utils
 	url = https://github.com/caricsvk/sb-utils.git
-[submodule "app/src/main/resources/static"]
-	path = app/src/main/resources/static
+[submodule "shiftplanner/src/main/resources/static"]
+	path = shiftplanner/src/main/resources/static
 	url = https://github.com/caricsvk/shiftplanner-frontend.git

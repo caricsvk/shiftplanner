@@ -12,12 +12,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>milo</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>shiftplanner-parent</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	<name>ShiftPlanner Parent Project</name>
 	<modules>
-		<module>app</module>
+		<module>shiftplanner</module>
 		<module>sb-utils</module>
 	</modules>
 
