@@ -4,9 +4,10 @@ import milo.shiftplanner.agents.AgentsResource;
 import milo.shiftplanner.shifts.ShiftsResource;
 import milo.utils.RestExceptionMapper;
 import milo.utils.rest.GZIPWriterInterceptor;
-import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
+//import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 import org.glassfish.jersey.server.ServerProperties;
 
+import javax.inject.Named;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class JaxRsConfig extends Application {
 		classes.add(RestExceptionMapper.class);
 
 		// my current java ee / glassfish / jersey preference
-		classes.add(MoxyJsonFeature.class);
+//		classes.add(MoxyJsonFeature.class);
 
 		return classes;
 	}

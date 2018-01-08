@@ -4,13 +4,13 @@ import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
 import org.apache.commons.net.smtp.SimpleSMTPHeader;
+import org.springframework.stereotype.Service;
 
-import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-@Stateless
+@Service
 public class EmailService {
 
 //	@Inject

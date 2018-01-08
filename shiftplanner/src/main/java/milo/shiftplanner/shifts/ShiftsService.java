@@ -4,16 +4,17 @@ import milo.shiftplanner.BaseResource;
 import milo.shiftplanner.mail.EmailService;
 import milo.utils.jpa.EntityService;
 import milo.utils.jpa.search.TableSearchQuery;
+import org.springframework.stereotype.Service;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-@Stateless
+@Service
 public class ShiftsService extends EntityService<Shift, Long> {
 
 	@PersistenceContext
@@ -31,6 +32,7 @@ public class ShiftsService extends EntityService<Shift, Long> {
 		return entityManager;
 	}
 
+	@Transactional
 	public void deployShift(Shift shift) {
 		LocalDateTime switchDateTime = LocalDateTime.now();
 		Shift currentShift = getCurrentShift();
