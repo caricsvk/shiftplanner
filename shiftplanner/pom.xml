@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>shiftplanner</artifactId>
-	<!--<version>0.9.0</version>-->
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>Shift Planner</name>
@@ -83,6 +83,14 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
