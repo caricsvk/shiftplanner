@@ -2,14 +2,14 @@ package milo.shiftplanner;
 
 import milo.shiftplanner.shifts.Shift;
 import milo.shiftplanner.shifts.ShiftsService;
-import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.ejb.Schedule;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Named
+@Stateless
 public class Scheduler {
 
     private final Logger logger = Logger.getLogger(Scheduler.class.getName());
@@ -17,10 +17,9 @@ public class Scheduler {
     @Inject
     private ShiftsService shiftsService;
 
-    @Scheduled(fixedRate = 60*1000) // every minute
+    @Schedule(minute = "*", hour = "*", persistent = false) // every minute
     protected void deployNewerShift() {
         Shift firstOverlappedShift = shiftsService.findFirsOverlapped();
-//        System.out.println("ShiftsService.deployNewerShift ------------ " + firstOverlappedShift);
         if (firstOverlappedShift == null) {
             BaseResource.lastShiftDeploymentException = null;
             return;

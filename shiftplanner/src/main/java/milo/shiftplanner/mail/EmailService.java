@@ -4,35 +4,34 @@ import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
 import org.apache.commons.net.smtp.SimpleSMTPHeader;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-@Named
-public final class EmailService {
+@Stateless
+public class EmailService {
 
-	@Value("${mail.smtp.host}")
-	private String smtpHost;
-	@Value("${mail.sender}")
-	private String sender;
+//	@Inject
+	private String mailSmtpHost;
+//	@Inject
+	private String mailSmtpSender;
 
 	public void send(String recipient, String subject, String message) {
-		if (smtpHost != null && !smtpHost.isEmpty()) {
+		if (mailSmtpHost != null && !mailSmtpHost.isEmpty()) {
 			smtpSend(recipient, subject, message);
 		}
 	}
 
 	private void smtpSend(String recipient, String subject, String message) {
 		try {
-			SimpleSMTPHeader header = new SimpleSMTPHeader(sender, recipient, subject);
+			SimpleSMTPHeader header = new SimpleSMTPHeader(mailSmtpSender, recipient, subject);
 
 			SMTPClient client = new SMTPClient();
 			client.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
 
-			client.connect(smtpHost);
+			client.connect(mailSmtpHost);
 
 			if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
 				client.disconnect();
@@ -40,7 +39,7 @@ public final class EmailService {
 			}
 
 			client.login();
-			client.setSender(sender);
+			client.setSender(mailSmtpSender);
 			client.addRecipient(recipient);
 			Writer writer = client.sendMessageData();
 

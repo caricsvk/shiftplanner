@@ -27,9 +27,9 @@ import java.time.LocalDateTime;
 @Entity
 @XmlRootElement
 @NamedQueries({
-		@NamedQuery(name = Shift.FIND_BY_AGENT, query = "SELECT entity FROM Shift entity WHERE agent.id = :agentId ORDER BY id ASC"),
-		@NamedQuery(name = Shift.FIND_BY_STATE, query = "SELECT entity FROM Shift entity WHERE state = :state ORDER BY entity.start DESC"),
-		@NamedQuery(name = Shift.FIND_OVERLAPPED, query = "SELECT entity FROM Shift entity WHERE state = :state AND entity.start <= :now ORDER BY entity.start DESC")
+		@NamedQuery(name = Shift.FIND_BY_AGENT, query = "SELECT entity FROM Shift entity WHERE entity.agent.id = :agentId ORDER BY entity.id ASC"),
+		@NamedQuery(name = Shift.FIND_BY_STATE, query = "SELECT entity FROM Shift entity WHERE entity.state = :state ORDER BY entity.start DESC"),
+		@NamedQuery(name = Shift.FIND_OVERLAPPED, query = "SELECT entity FROM Shift entity WHERE entity.state = :state AND entity.start <= :now ORDER BY entity.start DESC")
 })
 public class Shift implements Serializable {
 

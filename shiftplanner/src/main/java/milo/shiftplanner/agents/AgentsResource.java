@@ -26,7 +26,7 @@ public class AgentsResource implements EntityRestApi<Agent, Long> {
 
 	@PUT
 	@Path("activate")
-	public void activateAgent(@NotNull @Valid Agent agent) {
+	public void activateAgent(Agent agent) {
 		Shift shift = new Shift();
 		shift.setAgent(agent);
 		shiftsService.deployShift(shift);
@@ -69,7 +69,8 @@ public class AgentsResource implements EntityRestApi<Agent, Long> {
 	}
 
 	@Override
-	public List<Agent> read(@BeanParam TableSearchQuery tableSearchQuery) throws InterruptedException {
+	public List<Agent> read(@BeanParam TableSearchQuery tableSearchQuery) {
+		System.out.println("AgentsResource.read -=-=-=-=-=- ");
 		return agentsService.search(tableSearchQuery);
 	}
 
