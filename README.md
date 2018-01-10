@@ -4,7 +4,7 @@ This is a demonstration of a simple web-app which can be used for planning shift
 * Master branch contains Java EE 8 project, Docker descriptor file and a run.sh script which can easily build and deploy the app on glassfish 5 docker. 
 * spring-boot branch is branched out from master and with very few changes transformed to Spring Boot project which can be easily built and run as a jar file.
 
-Running demo ... currently not running anywhere :) hopefully I will deploy it soon.
+Running demo http://shiftplanner.nu-media.sk/
 
 Run released jar
 
